@@ -15,10 +15,11 @@
     "strictPropertyInitialization": false,
     "skipLibCheck": true,
     "paths": {
-      "*": ["node_modules/*"]
+      "@src/*": ["src/*"]
     },
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "noImplicitAny": true
   },
   "include": ["src/**/*"],
-  "exclude": ["src/tests"]
+  "exclude": ["src/tests", "node_modules", "build", "coverage"]
 }
