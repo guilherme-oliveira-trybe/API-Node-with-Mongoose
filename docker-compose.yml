@@ -3,9 +3,6 @@ services:
   mongodb:
     image: mongo:latest
     container_name: mongodb_container
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
       - mongodb_data_container:/data/db
     ports:
@@ -20,11 +17,7 @@ services:
     depends_on:
       - mongodb
     environment:
-      - MONGO_USERNAME=root
-      - MONGO_PASSWORD=example
-      - MONGO_HOSTNAME=mongodb
-      - MONGO_PORT=27017
-      - MONGO_DB=mydatabase
+      - MONGO_URI=mongodb://mongodb:27017/BigTrade
 
 volumes:
   mongodb_data_container:
