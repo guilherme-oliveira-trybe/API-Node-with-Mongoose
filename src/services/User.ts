@@ -30,6 +30,14 @@ class UserService implements IService<IUser> {
 
     return user;
   }
+
+  public async delete(_id: string): Promise<IUser> {
+    const userDeleted = await this._user.delete(_id);
+
+    if (!userDeleted) throw new Error(ErrorTypes.EntityNotFound);
+
+    return userDeleted;
+  }
 }
 
 export default UserService;
