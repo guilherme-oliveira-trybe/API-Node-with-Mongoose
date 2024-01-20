@@ -31,6 +31,18 @@ class UserService implements IService<IUser> {
     return user;
   }
 
+  public async update(_id: string, obj: unknown): Promise<IUser> {
+    const parsed = UserZodSchema.safeParse(obj);
+
+    if (!parsed.success) throw parsed.error;
+
+    const userUpdated = await this._user.update(_id, parsed.data);
+
+    if (!userUpdated) throw new Error(ErrorTypes.EntityNotFound);
+
+    return userUpdated;
+  }
+
   public async delete(_id: string): Promise<IUser> {
     const userDeleted = await this._user.delete(_id);
 
