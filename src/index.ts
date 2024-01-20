@@ -1,9 +1,15 @@
 import express from 'express';
+import 'express-async-errors';
+import errorHandler from './middlewares/error';
 import connectToDatabase from './models/connection';
+import userRouter from './routes/user';
 
 const app = express();
 
 app.use(express.json());
+
+app.use(userRouter);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 

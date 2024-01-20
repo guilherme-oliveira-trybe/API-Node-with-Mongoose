@@ -30,7 +30,9 @@
                     ["internal", "parent", "sibling", "index"]
                 ]
             }
-        ]
+        ],
+        "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+        "no-shadow": "off"
     },
     "settings": {
         "import/parsers": {
