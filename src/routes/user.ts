@@ -10,5 +10,6 @@ const userService = new UserService(userModel);
 const userController = new UserController(userService);
 
 route.post('/users', (req, res) => userController.create(req, res));
+route.get('/users/:id', (req, res) => userController.readOne(req, res));
 
 export default route;
