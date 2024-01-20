@@ -13,6 +13,12 @@ class UserService implements IService<IUser> {
     const parsed = UserZodSchema.safeParse(obj);
     if (!parsed.success) throw parsed.error;
 
+    const users = await this._user.read();
+
+    const isRepeatEmail = users?.some(({ email }) => email === parsed.data.email);
+
+    if (isRepeatEmail) throw new Error('RepeatedEmail');
+
     return this._user.create(parsed.data);
   }
 }
