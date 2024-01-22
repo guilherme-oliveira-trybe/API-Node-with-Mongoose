@@ -26,7 +26,7 @@ class UserService implements IService<IUser> {
   public async readOne(_id: string): Promise<IUser> {
     const user = await this._user.readOne(_id);
 
-    if (!user) throw new Error(ErrorTypes.EntityNotFound);
+    if (!user) throw new Error(ErrorTypes.UserNotFound);
 
     return user;
   }
@@ -38,7 +38,7 @@ class UserService implements IService<IUser> {
 
     const userUpdated = await this._user.update(_id, parsed.data);
 
-    if (!userUpdated) throw new Error(ErrorTypes.EntityNotFound);
+    if (!userUpdated) throw new Error(ErrorTypes.UserNotFound);
 
     return userUpdated;
   }
@@ -46,7 +46,7 @@ class UserService implements IService<IUser> {
   public async delete(_id: string): Promise<IUser> {
     const userDeleted = await this._user.delete(_id);
 
-    if (!userDeleted) throw new Error(ErrorTypes.EntityNotFound);
+    if (!userDeleted) throw new Error(ErrorTypes.UserNotFound);
 
     return userDeleted;
   }
