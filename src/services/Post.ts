@@ -1,8 +1,8 @@
 import { IService } from '../interfaces/IService';
 import { IModel } from '../interfaces/IModel';
 import { ErrorTypes } from '../errors/catalog';
-import PostZodSchema, { IPost } from '@src/interfaces/IPost';
-import { IUser } from '@src/interfaces/IUser';
+import PostZodSchema, { IPost } from '../interfaces/IPost';
+import { IUser } from '../interfaces/IUser';
 
 class PostService implements IService<IPost> {
   private _post: IModel<IPost>;

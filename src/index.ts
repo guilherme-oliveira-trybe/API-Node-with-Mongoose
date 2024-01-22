@@ -3,12 +3,14 @@ import 'express-async-errors';
 import errorHandler from './middlewares/error';
 import connectToDatabase from './models/connection';
 import userRouter from './routes/user';
+import postRouter from './routes/post';
 
 const app = express();
 
 app.use(express.json());
 
 app.use(userRouter);
+app.use(postRouter);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
