@@ -20,7 +20,7 @@ export const errorCatalog: ErrorCatalog = {
     httpStatus: 400,
   },
   InvalidMongoId: {
-    error: 'Id must have 24 hexadecimal characters',
+    error: 'Invalid MongoId',
     httpStatus: 400,
   },
   UserNotFound: {
