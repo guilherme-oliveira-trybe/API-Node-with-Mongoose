@@ -10,9 +10,15 @@ class UserController {
   }
 
   public async create(req: Request, res: Response<IUser>) {
-    const results = await this._service.create(req.body);
+    const result = await this._service.create(req.body);
 
-    return res.status(201).json(results);
+    return res.status(201).json(result);
+  }
+
+  public async read(req: Request, res: Response<IUser[]>) {
+    const results = await this._service.read();
+
+    return res.status(200).json(results);
   }
 
   public async readOne(req: Request, res: Response<IUser>) {

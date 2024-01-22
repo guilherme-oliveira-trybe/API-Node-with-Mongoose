@@ -23,6 +23,10 @@ class UserService implements IService<IUser> {
     return this._user.create(parsed.data);
   }
 
+  public async read(): Promise<IUser[]> {
+    return this._user.read();
+  }
+
   public async readOne(_id: string): Promise<IUser> {
     const user = await this._user.readOne(_id);
 
