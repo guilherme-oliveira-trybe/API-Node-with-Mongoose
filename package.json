@@ -4,7 +4,7 @@
   "description": "",
   "main": "./src/index.ts",
   "scripts": {
-    "test": "jest",
+    "test": "jest -i --verbose",
     "start": "ts-node ./src/index.ts",
     "dev": "tsnd src/index.ts",
     "test:coverage": "nyc --clean npm run test"
