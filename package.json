@@ -2,12 +2,11 @@
   "name": "teste-tecnico-bigtrade",
   "version": "1.0.0",
   "description": "",
-  "main": "./build/index.js",
+  "main": "./src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "ts-node ./src/index.ts",
-    "dev": "tsnd src/index.ts",
-    "test:dev": "ts-mocha src/tests/unit/**/*.spec.ts"
+    "dev": "tsnd src/index.ts"
   },
   "author": "Guilherme Oliveira",
   "license": "ISC",
@@ -18,13 +17,10 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.11",
     "@types/express": "^4.17.21",
-    "@types/mocha": "^10.0.6",
+    "@types/jest": "^29.5.11",
     "@types/node": "^20.11.5",
-    "@types/sinon": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
-    "chai": "^5.0.0",
     "dotenv": "^16.3.1",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
@@ -35,10 +31,9 @@
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-promise": "^6.1.1",
-    "mocha": "^10.2.0",
+    "jest": "^29.7.0",
     "prettier": "^3.2.4",
-    "sinon": "^17.0.1",
-    "ts-mocha": "^10.0.0",
+    "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
