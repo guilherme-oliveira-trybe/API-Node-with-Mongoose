@@ -1,26 +1,25 @@
 import UserModel from '../../../models/User';
+import { Model } from 'mongoose';
 import { userMock, userMockWithId, allUsersMock, userChangeMock, userChangeMockWithId, userDeletedMockWithId } from '../../mocks/userMocks';
 import { ErrorTypes } from '../../../errors/catalog';
+
+jest.mock('../../../models/MongoModel.ts', () => {
+  return jest.fn().mockImplementation(() => ({
+    create: jest.fn().mockReturnValue(userMockWithId),
+    read: jest.fn().mockReturnValue(allUsersMock),
+    readOne: jest.fn().mockReturnValue(userMockWithId),
+    update: jest.fn().mockReturnValue(userChangeMockWithId),
+    delete: jest.fn().mockReturnValue(userDeletedMockWithId),
+  }))
+})
 
 describe('User Model', () => {
   const userModel = new UserModel();
 
-  beforeEach(() => {
-    jest.spyOn(userModel, 'create').mockResolvedValue(userMockWithId);
-    jest.spyOn(userModel, 'read').mockResolvedValue(allUsersMock);
-    jest.spyOn(userModel, 'readOne').mockResolvedValue(userMockWithId);
-    jest.spyOn(userModel, 'update').mockResolvedValue(userChangeMockWithId);
-    jest.spyOn(userModel, 'delete').mockResolvedValue(userDeletedMockWithId);
-  });
-
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-
   describe('creating a user', () => {
     test('successfully created', async () => {
       const newUser = await userModel.create(userMock);
-      expect(newUser).toBe(userMockWithId);
+      expect(newUser).toEqual(userMockWithId);
     });
   });
 
