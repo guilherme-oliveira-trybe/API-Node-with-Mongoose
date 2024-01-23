@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { IService } from '../interfaces/IService';
-import { IPost } from '@src/interfaces/IPost';
+import { IPost } from '../interfaces/IPost';
 
 class PostController {
   private _service: IService<IPost>;

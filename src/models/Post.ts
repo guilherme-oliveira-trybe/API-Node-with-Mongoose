@@ -1,6 +1,6 @@
 import { model as mongooseCreateModel, Schema } from 'mongoose';
 import MongoModel from './MongoModel';
-import { IPost } from '@src/interfaces/IPost';
+import { IPost } from '../interfaces/IPost';
 
 const postMongooseSchema = new Schema<IPost>(
   {
