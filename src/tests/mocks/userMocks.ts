@@ -3,14 +3,14 @@ import { IUser } from '../../interfaces/IUser';
 const userMock: IUser = {
   displayName: 'John Doe',
   email: 'john@email.com',
-  password: '123456',
+  password: '86271900',
 };
 
 const userMockWithId: IUser & { _id: string } = {
   _id: '62cf1fc6498565d94eba52cd',
   displayName: 'John Doe',
   email: 'john@email.com',
-  password: '123456',
+  password: '86271900',
 };
 
 const allUsersMock: IUser[] & { _id: string }[] = [
@@ -18,7 +18,7 @@ const allUsersMock: IUser[] & { _id: string }[] = [
     _id: '62cf1fc6498565d94eba52cd',
     displayName: 'John Doe',
     email: 'john@email.com',
-    password: '123456',
+    password: '86271900',
   },
   {
     _id: '73cf1fc6498565d94eba52cd',
