@@ -1,7 +1,6 @@
 import * as sinon from 'sinon';
 import UserModel from '../../../models/User';
 import UserService from '../../../services/User';
-import { Model } from 'mongoose';
 import {
   userMock,
   userMockWithId,
