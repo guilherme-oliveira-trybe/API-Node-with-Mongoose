@@ -7,7 +7,7 @@ import { ErrorTypes } from '../../../errors/catalog';
 describe('User Model', () => {
   const userModel = new UserModel();
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     sinon.stub(Model, 'create').resolves([userMockWithId]);
     sinon.stub(Model, 'find').onCall(0).resolves(allUsersMock).onCall(1).resolves([]);
     sinon.stub(Model, 'findOne').resolves(userMockWithId);
@@ -15,7 +15,7 @@ describe('User Model', () => {
     sinon.stub(Model, 'findByIdAndDelete').resolves(userDeletedMockWithId);
   });
 
-  afterEach(()=>{
+  afterAll(()=>{
     sinon.restore();
   })
 
@@ -33,7 +33,6 @@ describe('User Model', () => {
     });
 
     test('if dont have users, returns an empty list', async () => {
-      jest.spyOn(userModel, 'read').mockResolvedValue([])
       const allUsersFound = await userModel.read();
       expect(allUsersFound).toEqual([]);
     });
