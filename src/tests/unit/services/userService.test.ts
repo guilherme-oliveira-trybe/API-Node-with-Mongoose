@@ -1,5 +1,7 @@
+import * as sinon from 'sinon';
 import UserModel from '../../../models/User';
 import UserService from '../../../services/User';
+import { Model } from 'mongoose';
 import {
   userMock,
   userMockWithId,
@@ -15,26 +17,25 @@ describe('User Service', () => {
   const userModel = new UserModel();
   const userService = new UserService(userModel);
 
-  beforeEach(() => {
-    jest.spyOn(userModel, 'create').mockResolvedValue(userMockWithId);
-    jest.spyOn(userModel, 'read').mockResolvedValue(allUsersMock);
-    jest.spyOn(userModel, 'readOne').mockResolvedValue(userMockWithId);
-    jest.spyOn(userModel, 'update').mockResolvedValue(userChangeMockWithId);
-    jest.spyOn(userModel, 'delete').mockResolvedValue(userDeletedMockWithId);
+  beforeAll(async () => {
+    sinon.stub(userModel, 'create').resolves(userMockWithId);
+    sinon.stub(userModel, 'read').onCall(0).resolves([]).onCall(1).resolves(allUsersMock).onCall(2).resolves(allUsersMock).onCall(3).resolves([]);
+    sinon.stub(userModel, 'readOne').onCall(0).resolves(userMockWithId).onCall(1).resolves(null);
+    sinon.stub(userModel, 'update').onCall(0).resolves(userChangeMockWithId).onCall(1).resolves(null);
+    sinon.stub(userModel, 'delete').onCall(0).resolves(userDeletedMockWithId).onCall(1).resolves(null);
   });
 
-  afterEach(() => {
-    jest.restoreAllMocks();
+  afterAll(() => {
+    sinon.restore();
   });
 
   describe('creating a user', () => {
     it('successfully created', async () => {
-      jest.spyOn(userModel, 'read').mockResolvedValue([])
-
       const userCreated = await userService.create(userMock);
-      expect(userCreated).toBe(userMockWithId);
-    });
 
+      expect(userCreated).toEqual(userMockWithId);
+    });
+    
     it('repeated email', async () => {
       let error;
       try {
@@ -45,6 +46,8 @@ describe('User Service', () => {
 
       expect(error).toBe(ErrorTypes.RepeatedEmail);
     });
+    
+
 
     it('Failure', async () => {
       let error;
@@ -66,9 +69,8 @@ describe('User Service', () => {
     });
 
     it('if dont have users, returns an empty list', async () => {
-      jest.spyOn(userModel, 'read').mockResolvedValue([]);
-
       const allUsersFound = await userService.read();
+
       expect(allUsersFound).toEqual([]);
     });
   });
@@ -81,7 +83,6 @@ describe('User Service', () => {
     });
 
     it('_id not found', async () => {
-      jest.spyOn(userModel, 'readOne').mockResolvedValue(null);
 
       let error;
       try {
@@ -102,8 +103,6 @@ describe('User Service', () => {
     });
 
     it('_id not found', async () => {
-      jest.spyOn(userModel, 'update').mockResolvedValue(null);
-
       let error;
       try {
         await userService.update(userChangeMockWithId._id, userChangeMock);
@@ -115,8 +114,6 @@ describe('User Service', () => {
     });
 
     it('Failure', async () => {
-      jest.spyOn(userModel, 'update').mockResolvedValue(null);
-
       let error;
       try {
         await userService.update(userChangeMockWithId._id, {});
@@ -136,8 +133,6 @@ describe('User Service', () => {
     });
 
     it('_id not found', async () => {
-      jest.spyOn(userModel, 'delete').mockResolvedValue(null);
-      
       let error;
       try {
         await userService.delete(userDeletedMockWithId._id);

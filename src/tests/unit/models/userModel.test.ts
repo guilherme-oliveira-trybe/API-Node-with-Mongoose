@@ -1,25 +1,28 @@
 import UserModel from '../../../models/User';
+import * as sinon from 'sinon';
 import { Model } from 'mongoose';
 import { userMock, userMockWithId, allUsersMock, userChangeMock, userChangeMockWithId, userDeletedMockWithId } from '../../mocks/userMocks';
 import { ErrorTypes } from '../../../errors/catalog';
 
-jest.mock('../../../models/MongoModel.ts', () => {
-  return jest.fn().mockImplementation(() => ({
-    create: jest.fn().mockReturnValue(userMockWithId),
-    read: jest.fn().mockReturnValue(allUsersMock),
-    readOne: jest.fn().mockReturnValue(userMockWithId),
-    update: jest.fn().mockReturnValue(userChangeMockWithId),
-    delete: jest.fn().mockReturnValue(userDeletedMockWithId),
-  }))
-})
-
 describe('User Model', () => {
   const userModel = new UserModel();
+
+  beforeEach(async () => {
+    sinon.stub(Model, 'create').resolves([userMockWithId]);
+    sinon.stub(Model, 'find').onCall(0).resolves(allUsersMock).onCall(1).resolves([]);
+    sinon.stub(Model, 'findOne').resolves(userMockWithId);
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(userChangeMockWithId);
+    sinon.stub(Model, 'findByIdAndDelete').resolves(userDeletedMockWithId);
+  });
+
+  afterEach(()=>{
+    sinon.restore();
+  })
 
   describe('creating a user', () => {
     test('successfully created', async () => {
       const newUser = await userModel.create(userMock);
-      expect(newUser).toEqual(userMockWithId);
+      expect(newUser).toEqual([userMockWithId]);
     });
   });
 
@@ -44,7 +47,6 @@ describe('User Model', () => {
 
     test('_id invalid', async () => {
       let error;
-      jest.spyOn(userModel, 'readOne').mockRejectedValueOnce(new Error(ErrorTypes.InvalidMongoId));
 
       try {
         await userModel.readOne('123ERRADO')
@@ -64,7 +66,6 @@ describe('User Model', () => {
 
     it('_id invalid', async () => {
       let error;
-      jest.spyOn(userModel, 'update').mockRejectedValueOnce(new Error(ErrorTypes.InvalidMongoId));
 
       try {
         await userModel.update('123ERRADO', userChangeMock);
@@ -85,7 +86,6 @@ describe('User Model', () => {
 
     it('_id invalid', async () => {
       let error;
-      jest.spyOn(userModel, 'delete').mockRejectedValueOnce(new Error(ErrorTypes.InvalidMongoId));
 
       try {
         await userModel.delete('123ERRADO');
