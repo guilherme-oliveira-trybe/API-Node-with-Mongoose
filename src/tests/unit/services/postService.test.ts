@@ -14,7 +14,7 @@ import {
 import { ErrorTypes } from '../../../errors/catalog';
 import { ZodError } from 'zod';
 
-describe('User Service', () => {
+describe('Post Service', () => {
   const userModel = new UserModel();
   const postModel = new PostModel();
   const postService = new PostService(postModel, userModel);
