@@ -15,7 +15,7 @@ class UserController {
     return res.status(201).json(result);
   }
 
-  public async read(req: Request, res: Response<IUser[]>) {
+  public async read(_req: Request, res: Response<IUser[]>) {
     const results = await this._service.read();
 
     return res.status(200).json(results);
