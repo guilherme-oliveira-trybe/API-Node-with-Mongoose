@@ -32,7 +32,7 @@ describe('Post Model', () => {
       expect(allPostsFound).toStrictEqual(allPostMock);
     });
 
-    test('if dont have users, returns an empty list', async () => {
+    test('if dont have posts, returns an empty list', async () => {
       const allPostsFound = await postModel.read();
       expect(allPostsFound).toEqual([]);
     });
